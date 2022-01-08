@@ -22,7 +22,7 @@ class VariableContext(object):
         self.client = client
         self.var_name = var_name
         self.queue = queue
-        self.okr = okr
+        self.okr = okr #variável de controle (quando o cliente faz sub)
         self.requested = requested
         
 
@@ -33,10 +33,10 @@ class VariableContext(object):
 
     def handle_update_queue(self, msg):
         if len(msg) > 0:
-            if msg[0] == '%pop%':
+            if msg[0] == '%pop%': #quer sair da lista
                 self.queue.pop(0)
                 print('\n[%s]: Queue %s atualizada: ação release %s' % (self.client.name, self.var_name, self.queue))
-            elif msg[0] == '%app%':  # Atualização na queue (próximo acquire recebido).
+            elif msg[0] == '%app%':  # Atualização na queue (próximo acquire recebido). - quer entrar na lista
                 if self.queue is None:
                     self.queue = msg[1]
                 else:
